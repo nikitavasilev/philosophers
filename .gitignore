@@ -60,3 +60,7 @@ dkms.conf
 
 # Build
 build/
+
+# Executables
+philo
+philo_bonus
