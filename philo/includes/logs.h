@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_args.c                                       :+:      :+:    :+:   */
+/*   logs.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/04 21:29:14 by nvasilev          #+#    #+#             */
-/*   Updated: 2022/11/14 22:24:13 by nvasilev         ###   ########.fr       */
+/*   Created: 2023/01/18 21:03:57 by nvasilev          #+#    #+#             */
+/*   Updated: 2023/01/18 21:05:41 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "core.h"
-#include <stdio.h>
+#ifndef LOGS_H
+# define LOGS_H
 
-void	print_args(t_philo_args *args)
-{
-	printf("number_of_philosophers: %d\n", args->nb_philos);
-	printf("time_to_die: %d\n", args->tdie);
-	printf("time_to_eat: %d\n", args->teat);
-	printf("time_to_sleep: %d\n", args->tsleep);
-	printf("number_of_times_each_philosopher_must_eat: %d\n",
-		args->nb_tmust_eat);
-}
+# include <sys/types.h>
+
+void	print_fork(size_t timestamp_in_ms, int philo_id);
+void	print_eat(size_t timestamp_in_ms, int philo_id);
+void	print_sleep(size_t timestamp_in_ms, int philo_id);
+void	print_think(size_t timestamp_in_ms, int philo_id);
+void	print_die(size_t timestamp_in_ms, int philo_id);
+
+#endif

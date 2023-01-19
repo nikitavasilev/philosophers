@@ -6,7 +6,7 @@
 #    By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/21 21:15:41 by nvasilev          #+#    #+#              #
-#    Updated: 2022/09/04 21:33:07 by nvasilev         ###   ########.fr        #
+#    Updated: 2023/01/19 22:31:58 by nvasilev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 NAME = 			philo
 
 CC = 			cc
-CFLAGS =		-Wall -Wextra -Werror -g3
+CFLAGS =		-Wall -Wextra -Werror -pthread -g3
 RM =			rm -f
 
 BUILD =			build
@@ -31,7 +31,9 @@ SRCS =			$(addsuffix .c, \
 
 MAIN =			./main
 
-CORE_SRCS =		$(addprefix core/, )
+CORE_SRCS =		$(addprefix core/, \
+				routine \
+				create_threads)
 
 PARSER_SRCS =	$(addprefix parser/, \
 				parse)
@@ -41,6 +43,9 @@ UTILS_SRCS =	$(addprefix utils/, \
 				ft_isdigit \
 				ft_isspace \
 				print_args)
+
+DISPLAY_SRCS =	$(addprefix display/, \
+				logs)
 
 ################################################################################
 #                                     OBJECTS                                  #

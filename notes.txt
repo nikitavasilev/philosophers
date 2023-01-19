@@ -1,0 +1,63 @@
+The "philosophers problem" is a classic problem in computer science
+that describes a scenario in which several philosophers are seated around a table,
+each with a plate of food in front of them.
+Between each pair of philosophers is a fork.
+In order to eat, a philosopher must use the fork to their left
+and the fork to their right.
+The problem is to create a program that coordinates the actions
+of the philosophers such that no philosopher becomes too hungry or goes hungry.
+
+To solve this problem, you will need to use threads and mutexes.
+A thread is a separate flow of execution within a program,
+while a mutex (short for "mutual exclusion")
+is a type of synchronization object that controls access
+to a shared resource by multiple threads.
+
+To begin your program,
+you will need to create a separate thread for each philosopher.
+In the thread function for each philosopher,
+you will need to implement a loop that describes the actions of the philosopher.
+Inside the loop, the philosopher should first try to acquire the fork to their left.
+If they are able to acquire the fork,
+they should then try to acquire the fork to their right.
+If both forks are acquired,
+the philosopher should eat for the specified amount of time.
+After eating, the philosopher should release the forks and then sleep
+for the specified amount of time.
+If a philosopher is unable to acquire both forks,
+they should think for a specified amount of time before trying again.
+
+To protect the forks from being used by multiple philosophers at the same time,
+you will need to use mutexes.
+You should create a mutex for each fork and use the mutex lock
+and unlock functions to control access to the forks.
+
+You should also include logic to handle the case where a philosopher dies
+if they have not eaten within a certain amount of time.
+You can use the gettimeofday function to track the time elapsed
+since the last time a philosopher ate.
+
+I hope this helps to clarify the requirements of the project.
+If you have any further questions or need more specific guidance,
+please let me know.
+
+
+To get started, you will need to create a separate thread for each philosopher.
+You can use the pthread_create function to create a new thread.
+The thread function for each philosopher should contain a loop
+that describes the actions of the philosopher.
+Inside the loop, the philosopher should first try
+to acquire the fork to their left using the pthread_mutex_lock function.
+If they are able to acquire the fork,
+they should then try to acquire the fork to their right.
+If both forks are acquired, the philosopher should eat
+for the specified amount of time using the usleep function.
+After eating, the philosopher should release the forks using the
+pthread_mutex_unlock function and then sleep for the specified amount of time
+using the usleep function.
+If a philosopher is unable to acquire both forks,
+they should think for a specified amount of time before trying again.
+
+You will also need to create a mutex for each fork using the pthread_mutex_init function and destroy the mutexes when they are no longer needed using the pthread_mutex_destroy function.
+
+Here is some sample code that demonstrates how to create a thread and use mutexes to synchronize access to shared resources:

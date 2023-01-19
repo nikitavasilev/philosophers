@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 20:06:36 by nvasilev          #+#    #+#             */
-/*   Updated: 2022/09/04 21:33:34 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/19 22:07:02 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ int	main(int argc, char const *argv[])
 	if (argc < 5 || argc > 6)
 	{
 		printf("ERROR: Wrong number of arguments.\n");
-		printf("Usage: ./philo [number_of_philosophers] [time_to_die] [time_to_eat] [time_to_sleep] [number_of_times_each_philosopher_must_eat]\n");
+		printf("Usage: ./philo [number_of_philosophers]\b"
+			"[time_to_die] [time_to_eat] [time_to_sleep]\b"
+			"[number_of_times_each_philosopher_must_eat]\n");
 		return (EXIT_FAILURE);
 	}
 	if (!parse(&args, argc, argv))

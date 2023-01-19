@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 20:35:00 by nvasilev          #+#    #+#             */
-/*   Updated: 2022/09/22 05:09:55 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/19 21:49:10 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	parse(t_philo_args *args, int argc, char const *argv[])
 	else
 		args->nb_tmust_eat = 0;
 	is_negative(args, &err);
-	if (err)
+	if (err || args->nb_philos < 1)
 	{
 		printf("ERROR: Wrong values.\n");
 		printf("Values should be integer positive values and <= INT_MAX.\n");
