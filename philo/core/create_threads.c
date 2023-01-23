@@ -2,7 +2,7 @@
 #include "core.h"
 
 // function to create threads
-void	create_threads(t_philo_args *args, t_philo *philos)
+void	create_threads(t_philo_args *args, t_data *philos)
 {
 	int			i;
 	pthread_t	id;
