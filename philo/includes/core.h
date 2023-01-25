@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:16:15 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/22 18:45:16 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:38:09 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,43 @@
 # define CORE_H
 
 # include <pthread.h>
+# include <sys/time.h>
+# include <stdbool.h>
 
-typedef struct s_philo_args
+typedef struct s_philo
 {
-	int				nb_philos;
-	int				tsleep;
-	int				tdie;
-	int				teat;
-	int				nb_tmust_eat;
 	pthread_t		thread_id;
-}	t_philo_args;
+	unsigned short	id;
+	unsigned int	times_ate;
+	unsigned int	fork[2];
+	unsigned int 	nb_of_meals;
+	time_t			last_meal;
+	t_data			*data;
+}	t_philo;
 
 typedef enum e_state
 {
-	fsleep,
-	eating,
-	died,
-	thinking,
-	taking_fork
+	TAKING_FORK,
+	EATING,
+	SLEEPING,
+	THINKING,
+	DIED
 }	t_state;
 
 typedef struct s_data
 {
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*left_right;
-	pthread_mutex_t	check_death;
-	pthread_mutex_t	display;
+	unsigned short	nb_philos;
+	time_t			time_to_die;
+	time_t			time_to_eat;
+	time_t			time_to_sleep;
+	unsigned int	nb_tmust_eat;
+	time_t			start_time;
+	pthread_mutex_t	*left_fork_lock;
+	pthread_mutex_t	*left_right_lock;
+	pthread_mutex_t	check_death_lock;
+	pthread_mutex_t	print_lock;
 	t_state			state;
-	int				last_meal;
-	int				nb_of_meal;
-	t_philo_args	*args;
+	t_philo			**philos;
 }	t_data;
 
 void	*routine(void *philo);
