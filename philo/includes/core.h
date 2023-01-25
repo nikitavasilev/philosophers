@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:16:15 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/24 15:38:09 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/25 23:43:04 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <sys/time.h>
 # include <stdbool.h>
 
+typedef struct s_data	t_data;
 typedef struct s_philo
 {
 	pthread_t		thread_id;
