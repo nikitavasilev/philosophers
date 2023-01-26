@@ -6,19 +6,25 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 21:03:57 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/18 21:05:41 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/26 03:31:31 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LOGS_H
 # define LOGS_H
 
-# include <sys/types.h>
+# include "core.h"
 
-void	print_fork(size_t timestamp_in_ms, int philo_id);
-void	print_eat(size_t timestamp_in_ms, int philo_id);
-void	print_sleep(size_t timestamp_in_ms, int philo_id);
-void	print_think(size_t timestamp_in_ms, int philo_id);
-void	print_die(size_t timestamp_in_ms, int philo_id);
+# define LOG_FORK		"has taken a fork"
+# define LOG_EAT		"is eating"
+# define LOG_SLEEP		"is sleeping"
+# define LOG_THINK		"is thinking"
+# define LOG_DIE		"died"
+# define LOG_ARGS_ERROR	"ERROR: Wrong number of arguments."
+# define LOG_USAGE		"Usage: ./philo <number_of_philosophers> \
+<time_to_die> <time_to_eat> <time_to_sleep> \
+[number_of_times_each_philosopher_must_eat]"
+
+void	print_message(time_t tms, unsigned short philo_id, t_state state);
 
 #endif

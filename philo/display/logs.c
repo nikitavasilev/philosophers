@@ -6,33 +6,23 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 21:04:04 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/18 21:04:06 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/26 03:19:40 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include "logs.h"
 
-void	print_fork(size_t timestamp_in_ms, int philo_id)
+void	print_message(time_t time_in_ms, unsigned short philo_id, t_state state)
 {
-	printf("%zu %d has taken a fork\n", timestamp_in_ms, philo_id);
-}
-
-void	print_eat(size_t timestamp_in_ms, int philo_id)
-{
-	printf("%zu %d is eating\n", timestamp_in_ms, philo_id);
-}
-
-void	print_sleep(size_t timestamp_in_ms, int philo_id)
-{
-	printf("%zu %d is sleeping\n", timestamp_in_ms, philo_id);
-}
-
-void	print_think(size_t timestamp_in_ms, int philo_id)
-{
-	printf("%zu %d is thinking\n", timestamp_in_ms, philo_id);
-}
-
-void	print_die(size_t timestamp_in_ms, int philo_id)
-{
-	printf("%zu %d died\n", timestamp_in_ms, philo_id);
+	if (state == FORK)
+		printf("%zu %d %s\n", time_in_ms, philo_id, LOG_FORK);
+	else if (state == EAT)
+		printf("%zu %d %s\n", time_in_ms, philo_id, LOG_EAT);
+	else if (state == SLEEP)
+		printf("%zu %d %s\n", time_in_ms, philo_id, LOG_SLEEP);
+	else if (state == THINK)
+		printf("%zu %d %s\n", time_in_ms, philo_id, LOG_THINK);
+	else if (state == DIE)
+		printf("%zu %d %s\n", time_in_ms, philo_id, LOG_DIE);
 }
