@@ -6,7 +6,7 @@
 #    By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/21 21:15:41 by nvasilev          #+#    #+#              #
-#    Updated: 2023/01/19 22:31:58 by nvasilev         ###   ########.fr        #
+#    Updated: 2023/01/26 02:15:17 by nvasilev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ MAIN =			./main
 
 CORE_SRCS =		$(addprefix core/, \
 				routine \
-				create_threads)
+				create_threads \
+				init)
 
 PARSER_SRCS =	$(addprefix parser/, \
 				parse)
@@ -42,7 +43,8 @@ UTILS_SRCS =	$(addprefix utils/, \
 				atoi_err_overflow \
 				ft_isdigit \
 				ft_isspace \
-				print_args)
+				print_args \
+				get_time_ms)
 
 DISPLAY_SRCS =	$(addprefix display/, \
 				logs)
