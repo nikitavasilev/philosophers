@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 20:06:36 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/26 03:34:47 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/28 04:35:29 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int	main(int argc, char const *argv[])
 		return (printf("%s\n%s\n", LOG_ARGS_ERROR, LOG_USAGE), EXIT_FAILURE);
 	if (!parse(&data, argc, argv))
 		return (EXIT_FAILURE);
-	if (!init_philos(&data))
-		return (EXIT_FAILURE);
 	if (!init_data(&data))
 		return (EXIT_FAILURE);
-	print_args(&data);
+	// print_args(&data);
+	create_threads(&data);
+	destroy(&data);
 	return (EXIT_SUCCESS);
 }
