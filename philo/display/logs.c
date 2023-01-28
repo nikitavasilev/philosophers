@@ -6,23 +6,30 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 21:04:04 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/26 03:19:40 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/28 05:33:59 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "logs.h"
+#include "core.h"
+#include "utils.h"
 
-void	print_message(time_t time_in_ms, unsigned short philo_id, t_state state)
+void	print_message(t_philo *philo)
 {
-	if (state == FORK)
-		printf("%zu %d %s\n", time_in_ms, philo_id, LOG_FORK);
-	else if (state == EAT)
-		printf("%zu %d %s\n", time_in_ms, philo_id, LOG_EAT);
-	else if (state == SLEEP)
-		printf("%zu %d %s\n", time_in_ms, philo_id, LOG_SLEEP);
-	else if (state == THINK)
-		printf("%zu %d %s\n", time_in_ms, philo_id, LOG_THINK);
-	else if (state == DIE)
-		printf("%zu %d %s\n", time_in_ms, philo_id, LOG_DIE);
+	time_t	time;
+
+	time = get_time_ms();
+	pthread_mutex_lock(&philo->data->print_lock);
+	if (philo->state == TAKING_FORK)
+		printf("%zu %d %s\n", get_time_ms() - time, philo->id, LOG_FORK);
+	else if (philo->state == EATING)
+		printf("%zu %d %s\n", get_time_ms() - time, philo->id, LOG_EAT);
+	else if (philo->state == SLEEPING)
+		printf("%zu %d %s\n", get_time_ms() - time, philo->id, LOG_SLEEP);
+	else if (philo->state == THINKING)
+		printf("%zu %d %s\n", get_time_ms() - time, philo->id, LOG_THINK);
+	else if (philo->state == DIED)
+		printf("%zu %d %s\n", get_time_ms() - time, philo->id, LOG_DIE);
+	pthread_mutex_unlock(&philo->data->print_lock);
 }
