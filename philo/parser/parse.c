@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 20:35:00 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/26 04:26:13 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/28 07:45:52 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 
 static void	is_negative(t_data *data, int *err)
 {
-	if ((short)data->nb_philos < 0 || data->time_to_sleep < 0 || data->time_to_die < 0
-		|| data->time_to_eat < 0 || (int)data->nb_tmust_eat < 0)
+	if ((short)data->nb_philos < 0 || data->time_to_sleep < 0
+		|| data->time_to_die < 0 || data->time_to_eat < 0
+		|| (int)data->nb_tmust_eat < 0)
 		*err = 1;
 }
 

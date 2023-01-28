@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 03:35:42 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/28 05:42:24 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/28 07:52:47 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,23 @@ void	*routine(void *philo)
 
 void	take_forks(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->forks_lock[philo->id - 1]);
+	pthread_mutex_t	*forks_lock;
+
+	forks_lock = philo->data->forks_lock;
+	pthread_mutex_lock(&forks_lock[philo->id - 1]);
 	philo->state = TAKING_FORK;
 	print_message(philo);
-	pthread_mutex_lock(&philo->data->forks_lock[philo->id % philo->data->nb_philos]);
+	pthread_mutex_lock(&forks_lock[philo->id % philo->data->nb_philos]);
 	print_message(philo);
 }
 
 void	put_forks(t_philo *philo)
 {
-	pthread_mutex_unlock(&philo->data->forks_lock[philo->id - 1]);
-	pthread_mutex_unlock(&philo->data->forks_lock[philo->id % philo->data->nb_philos]);
+	pthread_mutex_t	*forks_lock;
+
+	forks_lock = philo->data->forks_lock;
+	pthread_mutex_unlock(&forks_lock[philo->id - 1]);
+	pthread_mutex_unlock(&forks_lock[philo->id % philo->data->nb_philos]);
 }
 
 void	eat(t_philo *philo)
