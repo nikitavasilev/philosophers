@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:16:15 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/28 04:19:53 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/28 07:33:44 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ typedef struct s_philo
 	unsigned short	id;
 	unsigned int	times_ate;
 	unsigned int	nb_of_meals;
-	pthread_mutex_t	*left_fork_lock;
-	pthread_mutex_t	*right_fork_lock;
 	time_t			last_meal;
 	t_state			state;
 	struct s_data	*data;

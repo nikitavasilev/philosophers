@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 01:52:06 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/28 04:23:41 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/28 07:34:02 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ int	init_philos(t_data *data)
 		philos[i].data = data;
 		philos[i].last_meal = 0;
 		philos[i].nb_of_meals = 0;
-		philos[i].left_fork_lock = &data->forks_lock[i];
-		philos[i].right_fork_lock = &data->forks_lock[(i + 1) % data->nb_philos];
 		philos[i].state = THINKING;
 		i++;
 	}
