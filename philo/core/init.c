@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 01:52:06 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/28 07:34:02 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/29 04:17:46 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	init_data(t_data *data)
 	unsigned short	i;
 
 	data->start_time = get_time_ms();
+	data->one_died = false;
 	if (!init_philos(data))
 		return (0);
 	data->forks_lock = malloc(sizeof(pthread_mutex_t) * data->nb_philos);
