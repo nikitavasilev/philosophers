@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 02:14:44 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/29 05:49:18 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/29 23:03:06 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,19 @@ void	*check_death(void *data)
 		{
 			current_time = get_time_ms();
 
+			pthread_mutex_lock(&data_ptr->last_meal_lock);
 			if (current_time - data_ptr->philos[i].last_meal > data_ptr->time_to_die && data_ptr->philos[i].last_meal != 0)
 			{
-				pthread_mutex_lock(&data_ptr->check_death_lock);
+				pthread_mutex_lock(&data_ptr->state_lock);
 				data_ptr->philos[i].state = DIED;
+				pthread_mutex_unlock(&data_ptr->state_lock);
+				pthread_mutex_lock(&data_ptr->check_death_lock);
 				data_ptr->one_died = true;
 				print_message(&data_ptr->philos[i]);
 				pthread_mutex_unlock(&data_ptr->check_death_lock);
 				return (NULL);
 			}
+			pthread_mutex_unlock(&data_ptr->last_meal_lock);
 			i++;
 		}
 	}

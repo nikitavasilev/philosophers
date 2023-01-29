@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 21:04:04 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/28 07:48:21 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/29 23:02:44 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,22 @@ void	print_message(t_philo *philo)
 	current_time = get_time_ms();
 	start_time = philo->data->start_time;
 	pthread_mutex_lock(&philo->data->print_lock);
-	if (philo->state == TAKING_FORK)
-		printf("%zu %d %s\n", current_time - start_time, philo->id, LOG_FORK);
-	else if (philo->state == EATING)
-		printf("%zu %d %s\n", current_time - start_time, philo->id, LOG_EAT);
-	else if (philo->state == SLEEPING)
-		printf("%zu %d %s\n", current_time - start_time, philo->id, LOG_SLEEP);
-	else if (philo->state == THINKING)
-		printf("%zu %d %s\n", current_time - start_time, philo->id, LOG_THINK);
-	else if (philo->state == DIED)
-		printf("%zu %d %s\n", current_time - start_time, philo->id, LOG_DIE);
+	pthread_mutex_lock(&philo->data->state_lock);
+	pthread_mutex_lock(&philo->data->check_death_lock);
+	if (!philo->data->one_died)
+	{
+		if (philo->state == TAKING_FORK)
+			printf("%zu %d %s\n", current_time - start_time, philo->id, LOG_FORK);
+		else if (philo->state == EATING)
+			printf("%zu %d %s\n", current_time - start_time, philo->id, LOG_EAT);
+		else if (philo->state == SLEEPING)
+			printf("%zu %d %s\n", current_time - start_time, philo->id, LOG_SLEEP);
+		else if (philo->state == THINKING)
+			printf("%zu %d %s\n", current_time - start_time, philo->id, LOG_THINK);
+		else if (philo->state == DIED)
+			printf("%zu %d %s\n", current_time - start_time, philo->id, LOG_DIE);
+	}
+	pthread_mutex_unlock(&philo->data->check_death_lock);
+	pthread_mutex_unlock(&philo->data->state_lock);
 	pthread_mutex_unlock(&philo->data->print_lock);
 }

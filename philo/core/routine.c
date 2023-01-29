@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 03:35:42 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/29 05:43:02 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/29 23:04:37 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,36 +29,19 @@ void	*routine(void *philo)
 	philo_ptr = (t_philo *)philo;
 	while (1)
 	{
-		pthread_mutex_lock(&philo_ptr->data->check_death_lock);
-		if (philo_ptr->data->one_died)
-		{
-			pthread_mutex_unlock(&philo_ptr->data->check_death_lock);
-			return (NULL);
-		}
-		pthread_mutex_unlock(&philo_ptr->data->check_death_lock);
 		if (!take_forks(philo_ptr))
 			return (NULL);
 		if (!eat(philo_ptr))
 			return (NULL);
 		put_forks(philo_ptr);
+		pthread_mutex_lock(&philo_ptr->data->state_lock);
 		philo_ptr->state = SLEEPING;
-		pthread_mutex_lock(&philo_ptr->data->check_death_lock);
-		if (philo_ptr->data->one_died)
-		{
-			pthread_mutex_unlock(&philo_ptr->data->check_death_lock);
-			return (NULL);
-		}
-		pthread_mutex_unlock(&philo_ptr->data->check_death_lock);
+		pthread_mutex_unlock(&philo_ptr->data->state_lock);
 		print_message(philo_ptr);
 		philo_sleep(philo_ptr->data, philo_ptr->data->time_to_sleep);
-		pthread_mutex_lock(&philo_ptr->data->check_death_lock);
-		if (philo_ptr->data->one_died)
-		{
-			pthread_mutex_unlock(&philo_ptr->data->check_death_lock);
-			return (NULL);
-		}
-		pthread_mutex_unlock(&philo_ptr->data->check_death_lock);
+		pthread_mutex_lock(&philo_ptr->data->state_lock);
 		philo_ptr->state = THINKING;
+		pthread_mutex_unlock(&philo_ptr->data->state_lock);
 		print_message(philo_ptr);
 	}
 }
@@ -69,23 +52,11 @@ int	take_forks(t_philo *philo)
 
 	forks_lock = philo->data->forks_lock;
 	pthread_mutex_lock(&forks_lock[philo->id - 1]);
+	pthread_mutex_lock(&philo->data->state_lock);
 	philo->state = TAKING_FORK;
-	pthread_mutex_lock(&philo->data->check_death_lock);
-	if (philo->data->one_died)
-	{
-		pthread_mutex_unlock(&philo->data->check_death_lock);
-		return (0);
-	}
-	pthread_mutex_unlock(&philo->data->check_death_lock);
+	pthread_mutex_unlock(&philo->data->state_lock);
 	print_message(philo);
 	pthread_mutex_lock(&forks_lock[philo->id % philo->data->nb_philos]);
-	pthread_mutex_lock(&philo->data->check_death_lock);
-	if (philo->data->one_died)
-	{
-		pthread_mutex_unlock(&philo->data->check_death_lock);
-		return (0);
-	}
-	pthread_mutex_unlock(&philo->data->check_death_lock);
 	print_message(philo);
 	return (1);
 }
@@ -101,16 +72,13 @@ void	put_forks(t_philo *philo)
 
 int	eat(t_philo *philo)
 {
+	pthread_mutex_lock(&philo->data->state_lock);
 	philo->state = EATING;
+	pthread_mutex_unlock(&philo->data->state_lock);
+	pthread_mutex_lock(&philo->data->last_meal_lock);
 	philo->last_meal = get_time_ms();
+	pthread_mutex_unlock(&philo->data->last_meal_lock);
 	philo->nb_of_meals++;
-	pthread_mutex_lock(&philo->data->check_death_lock);
-	if (philo->data->one_died)
-	{
-		pthread_mutex_unlock(&philo->data->check_death_lock);
-		return (0);
-	}
-	pthread_mutex_unlock(&philo->data->check_death_lock);
 	print_message(philo);
 	philo_sleep(philo->data, philo->data->time_to_eat);
 	return (1);
