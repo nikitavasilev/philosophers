@@ -1,0 +1,44 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_death.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/29 02:14:44 by nvasilev          #+#    #+#             */
+/*   Updated: 2023/01/29 05:49:18 by nvasilev         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "core.h"
+#include "utils.h"
+#include "logs.h"
+#include <stdio.h>
+
+void	*check_death(void *data)
+{
+	t_data	*data_ptr;
+	time_t	current_time;
+	int		i;
+
+	data_ptr = (t_data *)data;
+	while (1)
+	{
+		i = 0;
+		while (i < data_ptr->nb_philos)
+		{
+			current_time = get_time_ms();
+
+			if (current_time - data_ptr->philos[i].last_meal > data_ptr->time_to_die && data_ptr->philos[i].last_meal != 0)
+			{
+				pthread_mutex_lock(&data_ptr->check_death_lock);
+				data_ptr->philos[i].state = DIED;
+				data_ptr->one_died = true;
+				print_message(&data_ptr->philos[i]);
+				pthread_mutex_unlock(&data_ptr->check_death_lock);
+				return (NULL);
+			}
+			i++;
+		}
+	}
+}
