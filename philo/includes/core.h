@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:16:15 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/28 07:33:44 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/29 04:16:33 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_philo
 typedef struct s_data
 {
 	unsigned short	nb_philos;
+	bool			one_died;
 	time_t			time_to_die;
 	time_t			time_to_eat;
 	time_t			time_to_sleep;
@@ -55,5 +56,6 @@ int		init_philos(t_data *data);
 int		init_data(t_data *data);
 void	destroy(t_data *data);
 void	create_threads(t_data *data);
+void	*check_death(void *data);
 
 #endif
