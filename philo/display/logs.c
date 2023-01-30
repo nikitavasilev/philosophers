@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 21:04:04 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/29 23:02:44 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/30 00:42:51 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "core.h"
 #include "utils.h"
 
-void	print_message(t_philo *philo)
+int	print_message(t_philo *philo)
 {
 	time_t	current_time;
 	time_t	start_time;
@@ -35,10 +35,17 @@ void	print_message(t_philo *philo)
 			printf("%zu %d %s\n", current_time - start_time, philo->id, LOG_SLEEP);
 		else if (philo->state == THINKING)
 			printf("%zu %d %s\n", current_time - start_time, philo->id, LOG_THINK);
-		else if (philo->state == DIED)
-			printf("%zu %d %s\n", current_time - start_time, philo->id, LOG_DIE);
+	}
+	if (philo->state == DIED)
+	{
+		printf("%zu %d %s\n", current_time - start_time, philo->id, LOG_DIE);
+		pthread_mutex_unlock(&philo->data->check_death_lock);
+		pthread_mutex_unlock(&philo->data->state_lock);
+		pthread_mutex_unlock(&philo->data->print_lock);
+		return (0);
 	}
 	pthread_mutex_unlock(&philo->data->check_death_lock);
 	pthread_mutex_unlock(&philo->data->state_lock);
 	pthread_mutex_unlock(&philo->data->print_lock);
+	return (1);
 }

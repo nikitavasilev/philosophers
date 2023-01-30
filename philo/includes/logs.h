@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 21:03:57 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/28 05:34:11 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/30 00:43:30 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@
 <time_to_die> <time_to_eat> <time_to_sleep> \
 [number_of_times_each_philosopher_must_eat]"
 
-void	print_message(t_philo *philo);
+int	print_message(t_philo *philo);
 
 #endif

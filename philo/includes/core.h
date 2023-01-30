@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:16:15 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/29 22:45:46 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/29 23:54:54 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ typedef struct s_philo
 	struct s_data	*data;
 }	t_philo;
 
-//manque last meal mutex ?
 typedef struct s_data
 {
 	unsigned short	nb_philos;
