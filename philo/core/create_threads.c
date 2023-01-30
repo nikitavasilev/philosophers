@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 03:35:29 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/30 16:09:49 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/30 18:05:46 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	create_threads(t_data *data)
 	while (i < data->nb_philos)
 	{
 		pthread_create(&data->philos[i].thread_id, NULL, \
-		&routine, &data->philos[i]);
+		&routine_dispatcher, &data->philos[i]);
 		i += 2;
 	}
 	usleep(100);
@@ -30,10 +30,10 @@ void	create_threads(t_data *data)
 	while (i < data->nb_philos)
 	{
 		pthread_create(&data->philos[i].thread_id, NULL, \
-		&routine, &data->philos[i]);
+		&routine_dispatcher, &data->philos[i]);
 		i += 2;
 	}
-	check_death(data);
+	monitor(data);
 	i = 0;
 	while (i < data->nb_philos)
 	{
