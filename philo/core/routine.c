@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 03:35:42 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/30 01:16:35 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/30 15:29:13 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 int		take_forks(t_philo *philo);
 void	put_forks(t_philo *philo);
 int		eat(t_philo *philo);
-void	philo_sleep(t_data *data, time_t sleep_time);
+void	sequential_sleep(t_data *data, time_t sleep_time);
 
 void	*routine(void *philo)
 {
@@ -32,14 +32,17 @@ void	*routine(void *philo)
 		if (!take_forks(philo_ptr))
 			return (NULL);
 		if (!eat(philo_ptr))
+		{
+			put_forks(philo_ptr);
 			return (NULL);
+		}
 		put_forks(philo_ptr);
 		pthread_mutex_lock(&philo_ptr->data->state_lock);
 		philo_ptr->state = SLEEPING;
 		pthread_mutex_unlock(&philo_ptr->data->state_lock);
 		if (!print_message(philo_ptr))
 			return (NULL);
-		philo_sleep(philo_ptr->data, philo_ptr->data->time_to_sleep);
+		sequential_sleep(philo_ptr->data, philo_ptr->data->time_to_sleep);
 		pthread_mutex_lock(&philo_ptr->data->state_lock);
 		philo_ptr->state = THINKING;
 		pthread_mutex_unlock(&philo_ptr->data->state_lock);
@@ -58,10 +61,16 @@ int	take_forks(t_philo *philo)
 	pthread_mutex_unlock(&philo->data->state_lock);
 	pthread_mutex_lock(&forks_lock[philo->id - 1]);
 	if (!print_message(philo))
+	{
+		pthread_mutex_unlock(&forks_lock[philo->id - 1]);
 		return (0);
+	}
 	pthread_mutex_lock(&forks_lock[philo->id % philo->data->nb_philos]);
 	if (!print_message(philo))
+	{
+		pthread_mutex_unlock(&forks_lock[philo->id % philo->data->nb_philos]);
 		return (0);
+	}
 	return (1);
 }
 
@@ -85,11 +94,11 @@ int	eat(t_philo *philo)
 	philo->nb_of_meals++;
 	if (!print_message(philo))
 		return (0);
-	philo_sleep(philo->data, philo->data->time_to_eat);
+	sequential_sleep(philo->data, philo->data->time_to_eat);
 	return (1);
 }
 
-void	philo_sleep(t_data *data, time_t sleep_time)
+void	sequential_sleep(t_data *data, time_t sleep_time)
 {
 	time_t	wake_up;
 
