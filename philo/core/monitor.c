@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_death.c                                      :+:      :+:    :+:   */
+/*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 02:14:44 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/30 16:06:31 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:04:58 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,39 @@ static void	grim_reaper(t_data *data, unsigned short index)
 	print_death(&data->philos[index]);
 }
 
-void	*check_death(void *data)
+static bool	nb_of_meals_check(t_data *data, unsigned short index)
 {
-	t_data			*data_ptr;
+	pthread_mutex_lock(&data->nb_of_meals_lock);
+	if (data->philos[index].nb_of_meals == data->nb_tmust_eat)
+	{
+		pthread_mutex_unlock(&data->nb_of_meals_lock);
+		data->times_ate++;
+		if (data->times_ate == data->nb_tmust_eat)
+			return (true);
+	}
+	pthread_mutex_unlock(&data->nb_of_meals_lock);
+	return (false);
+}
+
+void	*monitor(t_data *data)
+{
 	time_t			current_time;
 	time_t			last_meal;
 	unsigned short	i;
 
-	data_ptr = (t_data *)data;
 	while (1)
 	{
 		i = 0;
-		while (i < data_ptr->nb_philos)
+		while (i < data->nb_philos)
 		{
 			current_time = get_time_ms();
-			pthread_mutex_lock(&data_ptr->last_meal_lock);
-			last_meal = data_ptr->philos[i].last_meal;
-			pthread_mutex_unlock(&data_ptr->last_meal_lock);
-			if (current_time - last_meal > data_ptr->time_to_die && last_meal)
+			pthread_mutex_lock(&data->last_meal_lock);
+			last_meal = data->philos[i].last_meal;
+			pthread_mutex_unlock(&data->last_meal_lock);
+			if (current_time - last_meal > data->time_to_die && last_meal)
 				return (grim_reaper(data, i), NULL);
+			if (data->nb_tmust_eat > 0 && nb_of_meals_check(data, i))
+				return (NULL);
 			i++;
 		}
 	}
