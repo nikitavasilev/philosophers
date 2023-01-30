@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:16:15 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/30 11:26:13 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/30 18:05:25 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct s_philo
 {
 	pthread_t		thread_id;
 	unsigned short	id;
-	unsigned int	times_ate;
 	unsigned int	nb_of_meals;
 	time_t			last_meal;
 	t_state			state;
@@ -45,20 +44,23 @@ typedef struct s_data
 	time_t			time_to_eat;
 	time_t			time_to_sleep;
 	unsigned int	nb_tmust_eat;
+	unsigned int	times_ate;
 	time_t			start_time;
 	pthread_mutex_t	*forks_lock;
 	pthread_mutex_t	check_death_lock;
 	pthread_mutex_t	print_lock;
 	pthread_mutex_t	last_meal_lock;
 	pthread_mutex_t	state_lock;
+	pthread_mutex_t	nb_of_meals_lock;
 	t_philo			*philos;
 }	t_data;
 
+void	*routine_dispatcher(void *philo);
 void	*routine(void *philo);
 int		init_philos(t_data *data);
 int		init_data(t_data *data);
 void	destroy(t_data *data);
 void	create_threads(t_data *data);
-void	*check_death(void *data);
+void	*monitor(t_data *data);
 
 #endif
