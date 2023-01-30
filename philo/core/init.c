@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 01:52:06 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/30 15:09:14 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:10:44 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	init_data(t_data *data)
 	data->forks_lock = malloc(sizeof(pthread_mutex_t) * data->nb_philos);
 	if (!data->forks_lock)
 		return (0);
-	pthread_mutex_init(&data->check_death_lock, NULL); //proteger ?
+	pthread_mutex_init(&data->check_death_lock, NULL);
 	pthread_mutex_init(&data->print_lock, NULL);
 	pthread_mutex_init(&data->last_meal_lock, NULL);
 	pthread_mutex_init(&data->state_lock, NULL);
