@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 01:52:06 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/30 16:10:44 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:38:57 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	init_data(t_data *data)
 
 	data->start_time = get_time_ms();
 	data->one_died = false;
+	data->times_ate = 0;
 	if (!init_philos(data))
 		return (0);
 	data->forks_lock = malloc(sizeof(pthread_mutex_t) * data->nb_philos);
@@ -51,6 +52,7 @@ int	init_data(t_data *data)
 	pthread_mutex_init(&data->print_lock, NULL);
 	pthread_mutex_init(&data->last_meal_lock, NULL);
 	pthread_mutex_init(&data->state_lock, NULL);
+	pthread_mutex_init(&data->nb_of_meals_lock, NULL);
 	i = 0;
 	while (i < data->nb_philos)
 	{
