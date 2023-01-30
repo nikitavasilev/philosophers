@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:16:15 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/29 23:54:54 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/30 11:26:13 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef enum e_state
 	THINKING,
 	DIED
 }	t_state;
+
 typedef struct s_philo
 {
 	pthread_t		thread_id;
