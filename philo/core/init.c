@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 01:52:06 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/29 22:46:09 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/30 15:09:14 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 int	init_philos(t_data *data)
 {
-	t_philo	*philos;
-	int		i;
+	t_philo			*philos;
+	unsigned short	i;
 
 	philos = malloc(sizeof(t_philo) * data->nb_philos);
 	if (!philos)
