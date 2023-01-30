@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 20:35:00 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/28 07:45:52 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:02:46 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	parse(t_data *data, int argc, char const *argv[])
 	is_negative(data, &err);
 	if (argc == 5)
 		data->nb_tmust_eat = -1;
-	if (err || data->nb_philos < 1)
+	if (err || data->nb_philos < 1 || data->nb_tmust_eat < 1)
 	{
 		printf("ERROR: Wrong values.\n");
 		printf("Values should be integer positive values and <= INT_MAX.\n");
