@@ -6,7 +6,7 @@
 #    By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/21 21:15:41 by nvasilev          #+#    #+#              #
-#    Updated: 2023/01/30 16:57:08 by nvasilev         ###   ########.fr        #
+#    Updated: 2023/01/30 20:05:50 by nvasilev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ CORE_SRCS =		$(addprefix core/, \
 				create_threads \
 				init \
 				destroy \
-				monitor)
+				monitor \
+				actions)
 
 PARSER_SRCS =	$(addprefix parser/, \
 				parse)

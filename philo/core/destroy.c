@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 02:29:44 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/30 16:39:21 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/30 21:52:13 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	destroy(t_data *data)
 	pthread_mutex_destroy(&data->last_meal_lock);
 	pthread_mutex_destroy(&data->state_lock);
 	pthread_mutex_destroy(&data->nb_of_meals_lock);
+	pthread_mutex_destroy(&data->times_ate_lock);
 	free(data->forks_lock);
 	free(data->philos);
 }

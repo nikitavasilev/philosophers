@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:16:15 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/30 18:05:25 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/31 02:13:42 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,18 @@ typedef struct s_data
 	pthread_mutex_t	last_meal_lock;
 	pthread_mutex_t	state_lock;
 	pthread_mutex_t	nb_of_meals_lock;
+	pthread_mutex_t	times_ate_lock;
 	t_philo			*philos;
 }	t_data;
 
 void	*routine_dispatcher(void *philo);
-void	*routine(void *philo);
-int		init_philos(t_data *data);
 int		init_data(t_data *data);
 void	destroy(t_data *data);
 void	create_threads(t_data *data);
 void	*monitor(t_data *data);
+int		take_forks(t_philo *philo);
+void	put_forks(t_philo *philo);
+int		eat(t_philo *philo);
+void	sequential_sleep(t_data *data, time_t sleep_time);
 
 #endif
