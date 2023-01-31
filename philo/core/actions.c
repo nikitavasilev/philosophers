@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 20:05:13 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/31 02:23:28 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/31 03:50:29 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	take_forks(t_philo *philo)
 	pthread_mutex_lock(&philo->data->state_lock);
 	philo->state = TAKING_FORK;
 	pthread_mutex_unlock(&philo->data->state_lock);
-	if (philo->id % 2 == 0)
+	if (philo->id == 1)
 		return (even_philo_takes_fork(philo, forks_lock));
 	else
 		return (odd_philo_takes_fork(philo, forks_lock));

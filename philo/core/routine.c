@@ -6,7 +6,7 @@
 /*   By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 03:35:42 by nvasilev          #+#    #+#             */
-/*   Updated: 2023/01/31 02:31:02 by nvasilev         ###   ########.fr       */
+/*   Updated: 2023/01/31 04:16:21 by nvasilev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static void	*routine(void *philo)
 			return (NULL);
 		pthread_mutex_lock(&ph_ptr->data->state_lock);
 		ph_ptr->state = THINKING;
+		usleep(500);
 		pthread_mutex_unlock(&ph_ptr->data->state_lock);
 		pthread_mutex_lock(&ph_ptr->data->times_ate_lock);
 		if (ph_ptr->data->times_ate >= ph_ptr->data->nb_philos

@@ -6,7 +6,7 @@
 #    By: nvasilev <nvasilev@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/21 21:15:41 by nvasilev          #+#    #+#              #
-#    Updated: 2023/01/30 20:05:50 by nvasilev         ###   ########.fr        #
+#    Updated: 2023/01/31 04:13:44 by nvasilev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ $(BUILD)/%.o: %.c ./includes/*.h
 	$(CC) $(CFLAGS) -MMD $(INCLUDES) -c $< -o $@
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) -lpthread  $(INCLUDES) -o $@
+	$(CC) $(OBJS) -lpthread $(INCLUDES) -o $@
 
 clean:
 	$(RM) -r $(BUILD)
